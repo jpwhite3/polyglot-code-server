@@ -15,17 +15,20 @@ on:
 
 env:
   # TODO: Change variable to your image's name.
-  IMAGE_NAME: image
-
+  IMAGE_NAME: polyglot-code-server
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
-
     steps:
+      - uses: act10ns/slack@v1
+        with:
+          status: Building
+          channel: '#github'
+        if: always()
       - uses: actions/checkout@v2
-
       - name: Run tests
         run: |
           if [ -f docker-compose.test.yml ]; then
@@ -45,6 +48,11 @@ jobs:
     if: github.event_name == 'push'
 
     steps:
+      - uses: act10ns/slack@v1
+        with:
+          status: Pushing image
+          channel: '#github'
+        if: always()
       - uses: actions/checkout@v2
 
       - name: Build image
@@ -75,3 +83,9 @@ jobs:
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#github'
+        if: always()
