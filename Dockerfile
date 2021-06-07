@@ -91,6 +91,7 @@ code-server --install-extension eamodio.gitlens \
 && code-server --install-extension vscjava.vscode-java-pack \
 && code-server --install-extension ms-dotnettools.csharp \
 && code-server --install-extension redhat.vscode-yaml \
+&& code-server --install-extension oderwat.indent-rainbow \
 && rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 # ports and volumes
@@ -98,4 +99,3 @@ EXPOSE 9000
 
 # Set entrypoint
 ENTRYPOINT ["code-server", "--bind-addr", "0.0.0.0:9000", "--user-data-dir", "/config/data", "--extensions-dir", "/root/.local/share/code-server/extensions", "--disable-telemetry", "--auth", "none", "/config/workspace"]
-# sudo systemctl enable --now code-server@$USER
