@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: polyglot-service
+spec:
+  type: NodePort
+  sessionAffinity: ClientIP
+  selector:
+    app: polyglot-web
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polyglot-deployment
+spec:
+  selector:
+    matchLabels:
+      app: polyglot-web
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: polyglot-web
+    spec:
+      containers:
+      - name: polyglot
+        image: ghcr.io/jpwhite3/polyglot-code-server:latest
+        ports:
+          - containerPort: 9000
