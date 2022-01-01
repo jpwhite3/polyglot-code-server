@@ -76,7 +76,7 @@ RUN cd /usr/local/bin \
 RUN go version
 
 # CODER LATEST
-ENV CODER_VERSION 3.10.2
+ENV CODER_VERSION 3.12.0
 RUN \
 mkdir -p /config/data /config/extensions /config/workspace \
 && curl -fOL https://github.com/cdr/code-server/releases/download/v${CODER_VERSION}/code-server_${CODER_VERSION}_amd64.deb \
