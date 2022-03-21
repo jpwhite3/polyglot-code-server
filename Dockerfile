@@ -85,17 +85,21 @@ mkdir -p /config/data /config/extensions /config/workspace \
 # Install VSCode extentions
 RUN \
 code-server --install-extension eamodio.gitlens \
+&& code-server --install-extension mhutchie.git-graph \
+&& code-server --install-extension streetsidesoftware.code-spell-checker \
+&& code-server --install-extension oderwat.indent-rainbow \
+&& code-server --install-extension VisualStudioExptTeam.vscodeintellicode \
 && code-server --install-extension ms-python.python \
 && code-server --install-extension golang.go \
 && code-server --install-extension dbaeumer.vscode-eslint \
 && code-server --install-extension vscjava.vscode-java-pack \
 && code-server --install-extension ms-dotnettools.csharp \
 && code-server --install-extension redhat.vscode-yaml \
-&& code-server --install-extension oderwat.indent-rainbow \
+&& code-server --install-extension bierner.markdown-mermaid \
 && rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 # ports and volumes
-EXPOSE 9000
+EXPOSE 9000 9001 9002 9003 9004
 
 # Set entrypoint
 ENTRYPOINT ["code-server", "--bind-addr", "0.0.0.0:9000", "--user-data-dir", "/config/data", "--extensions-dir", "/root/.local/share/code-server/extensions", "--disable-telemetry", "--auth", "none", "/config/workspace"]
