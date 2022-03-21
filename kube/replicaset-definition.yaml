@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: polyglot-replicaset
+  labels:
+    app: polyglot
+    type: coder-server
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: polyglot
+      labels:
+        app: polyglot
+        type: coder-server
+    spec:
+      containers:
+        - name: polyglot-code-server
+          image: ghcr.io/jpwhite3/polyglot-code-server:latest
