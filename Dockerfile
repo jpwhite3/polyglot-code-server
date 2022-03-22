@@ -87,7 +87,10 @@ code-server --install-extension eamodio.gitlens \
 && code-server --install-extension golang.go \
 && code-server --install-extension dbaeumer.vscode-eslint \
 && code-server --install-extension vscjava.vscode-java-pack \
+&& code-server --install-extension richardwillis.vscode-gradle \
 && code-server --install-extension ms-dotnettools.csharp \
+&& code-server --install-extension muhammad-sammy.csharp \
+&& code-server --install-extension patcs.vscode-nuget-gallery \
 && code-server --install-extension redhat.vscode-yaml \
 && code-server --install-extension bierner.markdown-mermaid \
 && rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
