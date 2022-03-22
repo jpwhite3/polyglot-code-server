@@ -8,7 +8,7 @@ Node == v10.19.0
 Python == 3.8.10
 Java == 11.0.14
 GO == 1.13.8
-Dotnet == 3.1.417
+Dotnet == 6.0
 
 # Included Tools
 code-server == 4.1.0
@@ -18,7 +18,6 @@ gpg
 git
 make
 p7zip
-zsh
 vim 
 jq
 xz-utils

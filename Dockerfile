@@ -36,14 +36,12 @@ RUN apt-get update --no-install-recommends \
 	jq \
 	vim \
 	less \
-	# ZSHELL LATEST
-	zsh \
 	# PYTHON LATEST
 	python3-pip python3-dev \
 	# JAVA LATEST
 	openjdk-11-jdk-headless maven gradle \
 	# .NET-CORE LATEST
-	apt-transport-https dotnet-sdk-3.1 \
+	apt-transport-https dotnet-sdk-6.0 \
 	# NODE LATEST
 	nodejs yarn npm \
 	# GO LATEST
@@ -56,10 +54,6 @@ RUN apt-get update --no-install-recommends \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
 
-# Install zshell configuration
-RUN zsh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended \
-  && sed -i 's/# DISABLE_AUTO_UPDATE="true"/DISABLE_AUTO_UPDATE="true"/' /root/.zshrc \
-  && sed -i 's/export ZSH="\/config\/.oh-my-zsh"/export ZSH="~\/.oh-my-zsh"/' /root/.zshrc
 
 # NODE SETUP
 RUN node --version \
@@ -78,7 +72,7 @@ RUN go version
 # CODER LATEST
 ENV CODER_VERSION 4.1.0
 RUN \
-mkdir -p /config/data /config/extensions /config/workspace \
+mkdir -p /config/data /config/workspace \
 && curl -fOL https://github.com/cdr/code-server/releases/download/v${CODER_VERSION}/code-server_${CODER_VERSION}_amd64.deb \
 && sudo dpkg -i code-server_${CODER_VERSION}_amd64.deb
 
