@@ -10,6 +10,6 @@ clean-all:
 run:
 	docker run -it -p 9000:9000 polyglot-code-server:latest
 
-build: clean
+build:
 	export VERSION=`cat VERSION` && \
-	docker build . -t polyglot-code-server:latest -t polyglot-code-server:$$VERSION --platform linux/amd64
+	docker build . -t polyglot-code-server:latest -t polyglot-code-server:$$VERSION --platform linux/amd64 --progress=plain

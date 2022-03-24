@@ -4,11 +4,11 @@ Multi programming language container built for interactive development environme
 ![Docker](https://github.com/jpwhite3/polyglot-code-server/workflows/Docker/badge.svg)
 
 # Included Languages
-- Node == v10.19.0
+- Node == v16.14.2
 - Python == 3.8.10
 - Java == 11.0.14
-- GO == 1.13.8
-- Dotnet == 6.0
+- GO == 1.18
+- Dotnet == 6.0.201
 
 # Included Tools
 - code-server == 4.1.0
