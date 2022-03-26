@@ -101,7 +101,8 @@ code-server --install-extension eamodio.gitlens \
 && code-server --install-extension vscjava.vscode-java-pack \
 && code-server --install-extension richardwillis.vscode-gradle \
 && code-server --install-extension formulahendry.code-runner \
-&& code-server --install-extension muhammad-sammy.csharp \
+&& code-server --install-extension jsw.chsarpextensions \
+&& code-server --install-extension tinytoy.msbuild-project-tools \
 && code-server --install-extension patcx.vscode-nuget-gallery \
 && code-server --install-extension github.vscode-pull-request-github \
 && code-server --install-extension redhat.vscode-yaml \
