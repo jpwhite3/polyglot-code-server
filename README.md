@@ -16,6 +16,7 @@ Multi programming language container built for interactive development environme
 - curl
 - gpg
 - git
+- livingdoc
 - make
 - p7zip
 - vim 

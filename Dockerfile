@@ -68,6 +68,10 @@ ENV NVM_DIR ~/.nvm
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
+# DOTNET SpecFlow Install
+RUN \
+dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI 
+ENV PATH      ~/.dotnet/tools:$PATH
 
 # PYTHON Configuration
 RUN \
