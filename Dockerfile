@@ -43,7 +43,7 @@ RUN apt-get update --no-install-recommends \
 	# PYTHON LATEST
 	python3 python3-dev python3-venv python3-pip \
 	# JAVA LATEST
-	openjdk-11-jdk-headless maven gradle \
+	openjdk-11-jdk-headless maven \
 	# .NET-CORE LATEST
 	dotnet-sdk-6.0 \
 	# CLEAN UP
@@ -54,6 +54,16 @@ RUN apt-get update --no-install-recommends \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
 
+# Gradle Installation
+RUN \
+wget https://services.gradle.org/distributions/gradle-7.4.2-bin.zip -P /tmp \
+&& mkdir /opt/gradle \
+&& unzip -d /opt/gradle /tmp/gradle-7.4.2-bin.zip \
+&& echo "export GRADLE_HOME=/opt/gradle/gradle-7.4.2" >> /etc/profile.d/gradle.sh \
+&& echo "export PATH=${GRADLE_HOME}/bin:${PATH}" >> /etc/profile.d/gradle.sh \
+&& chmod +x /etc/profile.d/gradle.sh
+ENV GRADLE_HOME /opt/gradle/gradle-7.4.2
+ENV PATH /opt/gradle/gradle-7.4.2/bin:$PATH
 
 # NODE Installation with nvm 
 ENV NODE_VERSION lts/gallium
