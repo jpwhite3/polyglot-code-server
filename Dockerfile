@@ -17,6 +17,7 @@ RUN apt update \
 	git \
 	make \
 	p7zip-full \
+	unzip \
 	xz-utils \
 	jq \
 	vim \
