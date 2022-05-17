@@ -96,7 +96,7 @@ curl -OL https://go.dev/dl/go1.18.linux-amd64.tar.gz \
 && /usr/local/go/bin/go version
 
 # CODER Installation
-ENV CODER_VERSION 4.3.0
+ENV CODER_VERSION 4.4.0
 RUN \
 mkdir -p /config/data /config/workspace \
 && curl -fOL https://github.com/cdr/code-server/releases/download/v${CODER_VERSION}/code-server_${CODER_VERSION}_amd64.deb \
