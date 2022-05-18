@@ -86,7 +86,8 @@ ENV PATH      ~/.dotnet/tools:$PATH
 
 # PYTHON Configuration
 RUN \
-python3 -m pip install --upgrade pip setuptools wheel poetry
+ln -s /usr/bin/python3 /usr/bin/python \
+&& python -m pip install --upgrade pip setuptools wheel poetry
 
 # GO Installation
 RUN \
