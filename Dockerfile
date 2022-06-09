@@ -132,7 +132,7 @@ RUN \
 echo "Tool versions:" \
 && python --version \
 && java -version \
-&& go version \
+&& /usr/local/go/bin/go version \
 && dotnet --version \
 && node --version
 

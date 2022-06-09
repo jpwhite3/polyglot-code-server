@@ -8,7 +8,7 @@ Multi programming language container built for interactive development environme
 
 - Node == v16.14.2
 - Python == 3.10.4
-- Java == 11.0.14
+- Java == 18
 - GO == 1.18
 - Dotnet == 6.0.300
 
