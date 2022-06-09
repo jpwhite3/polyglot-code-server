@@ -131,10 +131,10 @@ code-server --install-extension eamodio.gitlens \
 RUN \
 echo "Tool versions:" \
 && python --version \
-&& node --version \
 && java -version \
 && go version \
-&& dotnet --version
+&& dotnet --version \
+&& node --version
 
 # ports and volumes
 EXPOSE 9000 9001 9002 9003 9004
