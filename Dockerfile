@@ -125,6 +125,7 @@ code-server --install-extension eamodio.gitlens \
 && code-server --install-extension ethan-reesor.vscode-go-test-adapter \
 && code-server --install-extension alexkrechik.cucumberautocomplete \
 && code-server --install-extension hbenl.test-adapter-converter \
+&& coder-server --install-extension muhammad-sammy.csharp \
 && rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 # Print versions
