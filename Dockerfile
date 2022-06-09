@@ -34,7 +34,7 @@ RUN apt update \
 	/tmp/* \
 	/var/lib/apt/lists/* \
 	/var/tmp/* \
-	&& wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb --no-check-certificate \
+	&& wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb --no-check-certificate \
     && dpkg -i packages-microsoft-prod.deb \
 	&& rm -f packages-microsoft-prod.deb
 
@@ -44,7 +44,7 @@ RUN apt-get update --no-install-recommends \
 	# PYTHON LATEST
 	python3 python3-dev python3-venv python3-pip \
 	# JAVA LATEST
-	openjdk-11-jdk-headless maven \
+	openjdk-18-jdk-headless maven \
 	# .NET-CORE LATEST
 	dotnet-sdk-6.0 \
 	# CLEAN UP
@@ -126,6 +126,15 @@ code-server --install-extension eamodio.gitlens \
 && code-server --install-extension alexkrechik.cucumberautocomplete \
 && code-server --install-extension hbenl.test-adapter-converter \
 && rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
+
+# Print versions
+RUN \
+echo "Tool versions:" \
+&& python --version \
+&& node --version \
+&& java -version \
+&& go version \
+&& dotnet --version
 
 # ports and volumes
 EXPOSE 9000 9001 9002 9003 9004
