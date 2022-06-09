@@ -133,8 +133,7 @@ echo "Tool versions:" \
 && python --version \
 && java -version \
 && /usr/local/go/bin/go version \
-&& dotnet --version \
-&& ${NVM_DIR}/v${NODE_VERSION}/bin/node --version
+&& dotnet --version
 
 # ports and volumes
 EXPOSE 9000 9001 9002 9003 9004
