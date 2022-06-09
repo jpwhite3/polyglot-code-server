@@ -14,6 +14,8 @@ Multi programming language container built for interactive development environme
 
 # Included Tools
 
+- gradle == 7.4.2
+- nvm == 0.39.1
 - code-server == 4.4.0
 - wget
 - curl
