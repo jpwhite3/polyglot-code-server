@@ -83,6 +83,7 @@ ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 RUN \
 dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI 
 ENV PATH      ~/.dotnet/tools:$PATH
+ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
 
 # PYTHON Configuration
 RUN \
@@ -125,7 +126,7 @@ code-server --install-extension eamodio.gitlens \
 && code-server --install-extension ethan-reesor.vscode-go-test-adapter \
 && code-server --install-extension alexkrechik.cucumberautocomplete \
 && code-server --install-extension hbenl.test-adapter-converter \
-&& coder-server --install-extension muhammad-sammy.csharp \
+&& code-server --install-extension muhammad-sammy.csharp \
 && rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 # Print versions
