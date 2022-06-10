@@ -2,25 +2,18 @@ name: Docker
 
 on:
   push:
-    # Publish `master` as Docker `latest` image.
-    branches:
-      - master
-
-    # Publish `v1.2.3` tags as releases.
+    branches: [ develop, main ]
     tags:
       - v*
-
-  # Run tests for any PRs.
   pull_request:
 
 env:
-  # TODO: Change variable to your image's name.
   IMAGE_NAME: polyglot-code-server
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
+    if: github.ref_name == 'develop'
     runs-on: ubuntu-latest
     steps:
       - uses: act10ns/slack@v1
@@ -38,15 +31,9 @@ jobs:
             docker build . --file Dockerfile
           fi
 
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
-  push:
-    # Ensure test job passes before pushing image.
-    needs: test
-
+  publish:
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
     steps:
       - uses: act10ns/slack@v1
         with:
@@ -59,7 +46,6 @@ jobs:
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into GitHub Container Registry
-      # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push image to GitHub Container Registry
