@@ -16,20 +16,24 @@ jobs:
     if: github.ref_name == 'develop'
     runs-on: ubuntu-latest
     steps:
-      - uses: act10ns/slack@v1
+      - name: Notify
+        uses: act10ns/slack@v1
+        if: always()
         with:
           status: Building
           channel: '#github'
-        if: always()
       - uses: actions/checkout@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        if: always()
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Run tests
+        if: always()
         run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
-          else
-            docker build . --file Dockerfile
-          fi
+          docker build . --file Dockerfile
 
   publish:
     if: github.ref_name == 'main'
@@ -42,11 +46,11 @@ jobs:
         if: always()
       - uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
-
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Push image to GitHub Container Registry
         run: |
