@@ -1,7 +1,7 @@
-FROM ghcr.io/jpwhite3/polyglot:latest
+FROM ghcr.io/jpwhite3/polyglot:main
 
 # CODER Installation
-ENV CODER_VERSION 4.4.0
+ENV CODER_VERSION 4.5.1
 RUN \
 	mkdir -p /config/data /config/workspace \
 	&& curl -fOL https://github.com/cdr/code-server/releases/download/v${CODER_VERSION}/code-server_${CODER_VERSION}_amd64.deb \
