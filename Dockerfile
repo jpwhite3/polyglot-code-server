@@ -1,4 +1,4 @@
-FROM ghcr.io/jpwhite3/polyglot:main
+FROM ghcr.io/jpwhite3/polyglot:latest
 
 # CODER Installation
 ENV CODER_VERSION 4.5.1
