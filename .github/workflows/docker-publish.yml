@@ -5,6 +5,8 @@ on:
     branches: [ develop, main ]
     tags:
       - v*
+    paths-ignore:
+        - '**/README.md'
   pull_request:
 
 env:

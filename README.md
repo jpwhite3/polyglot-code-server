@@ -12,15 +12,15 @@ _NOTE:_ The container image is quite large, and can be very resource intensive. 
 
 ## Included Tools
 
-| Ecosystem            | Tools                                               |
-| -------------------- | --------------------------------------------------- |
-| Node == v16.14.2     | nvm == 0.39.1                                       |
-| code-server == 4.5.1 | _various vscode plugins_                            |
-| Python == 3.10.4     | poetry                                              |
-| Java == 18           | gradle == 7.4.2                                     |
-| GO == 1.18           |                                                     |
-| Dotnet == 6.0.300    | livingdoc                                           |
-| Linux Utilities      | wget, curl, gpg, git, make, p7zip, vim, jq,xz-utils |
+| Ecosystem            | Tools                                                |
+| -------------------- | ---------------------------------------------------- |
+| Node == v16.14.2     | nvm == 0.39.1                                        |
+| code-server == 4.5.1 | _various vscode plugins_                             |
+| Python == 3.10.4     | Poetry == 1.1.13                                     |
+| Java == 18           | gradle == 7.4.2                                      |
+| GO == 1.18           |                                                      |
+| Dotnet == 6.0.300    | livingdoc                                            |
+| Linux Utilities      | wget, curl, gpg, git, make, p7zip, vim, jq, xz-utils |
 
 # Installations instructions
 
