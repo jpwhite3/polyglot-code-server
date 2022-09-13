@@ -15,7 +15,7 @@ _NOTE:_ The container image is quite large, and can be very resource intensive. 
 | Ecosystem            | Tools                                                |
 | -------------------- | ---------------------------------------------------- |
 | Node == v16.14.2     | nvm == 0.39.1                                        |
-| code-server == 4.5.1 | _various vscode plugins_                             |
+| code-server == 4.7.0 | _various vscode plugins_                             |
 | Python == 3.10.4     | Poetry == 1.1.13                                     |
 | Java == 18           | gradle == 7.4.2                                      |
 | GO == 1.18           |                                                      |
