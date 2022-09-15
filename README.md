@@ -18,7 +18,7 @@ _NOTE:_ The container image is quite large, and can be very resource intensive. 
 | code-server == 4.7.0 | _various vscode plugins_                             |
 | Python == 3.10.4     | Poetry == 1.1.13                                     |
 | Java == 18           | gradle == 7.4.2                                      |
-| GO == 1.18           |                                                      |
+| GO == 1.19           |                                                      |
 | Dotnet == 6.0.300    | livingdoc                                            |
 | Linux Utilities      | wget, curl, gpg, git, make, p7zip, vim, jq, xz-utils |
 
