@@ -1,7 +1,7 @@
 FROM ghcr.io/jpwhite3/polyglot:latest
 
 # CODER Installation
-ENV CODER_VERSION 4.9.0
+ENV CODER_VERSION 4.9.1
 RUN \
 	mkdir -p /config/data /config/workspace \
 	&& curl -fOL https://github.com/cdr/code-server/releases/download/v${CODER_VERSION}/code-server_${CODER_VERSION}_amd64.deb \
@@ -16,13 +16,9 @@ RUN \
 	&& code-server --install-extension golang.go \
 	&& code-server --install-extension dbaeumer.vscode-eslint \
 	&& code-server --install-extension vscjava.vscode-java-pack \
-	&& code-server --install-extension vscjava.vscode-java-debug \
 	&& code-server --install-extension richardwillis.vscode-gradle \
 	&& code-server --install-extension patcx.vscode-nuget-gallery \
 	&& code-server --install-extension redhat.vscode-yaml \
-	&& code-server --install-extension bierner.markdown-mermaid \
-	&& code-server --install-extension formulahendry.code-runner \
-	&& code-server --install-extension hbenl.vscode-test-explorer \
 	&& code-server --install-extension hbenl.vscode-mocha-test-adapter \
 	&& code-server --install-extension kavod-io.vscode-jest-test-adapter \
 	&& code-server --install-extension hbenl.vscode-jasmine-test-adapter \
@@ -30,6 +26,9 @@ RUN \
 	&& code-server --install-extension alexkrechik.cucumberautocomplete \
 	&& code-server --install-extension hbenl.test-adapter-converter \
 	&& rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
+
+COPY scripts/git-setup /usr/bin/git-setup
+RUN chmod +x /usr/bin/git-setup
 
 # ports and volumes
 EXPOSE 9000 9001
