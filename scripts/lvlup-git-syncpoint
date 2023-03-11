@@ -1,0 +1,101 @@
+#!env python3
+
+import subprocess
+import argparse
+from functools import lru_cache
+
+BANNER = """
+                                                        #
+#                                   #     #            ###
+#       ###### #    # ###### #      #     # #####     #####
+#       #      #    # #      #      #     # #    #   #######
+#       #####  #    # #####  #      #     # #    #  #########
+#       #      #    # #      #      #     # #####  ###########
+#       #       #  #  #      #      #     # #        #######
+####### ######   ##   ###### ######  #####  #        #######
+
+"""
+
+SYNCPOINT_BRANCH_PREFIX = "syncpoint"
+
+
+def get_commit_hash_of_branch(branch_name):
+    result = subprocess.run(
+        "git rev-parse --short --verify main", stdout=subprocess.PIPE
+    )
+    if result.returncode < 1:
+        print(result.stderr.decode("utf-8"))
+        exit(1)
+    return result.stdout.decode("utf-8").strip()
+
+
+@lru_cache
+def get_available_syncpoints():
+    result = subprocess.run(["git", "branch", "-a"], stdout=subprocess.PIPE)
+    branch_list = [
+        x.strip().replace("remotes/origin/", "")
+        for x in result.stdout.decode("utf-8").splitlines()
+    ]
+    return [x for x in branch_list if x.startswith(SYNCPOINT_BRANCH_PREFIX)]
+
+
+def save_current_state_to_tag():
+    commit_hash = get_commit_hash_of_branch("main")
+    commands = [
+        [
+            "git",
+            "tag",
+            f"save-{commit_hash}",
+            commit_hash,
+            "-a",
+            "saving state prior to main branch repointing",
+        ],
+        ["git", "push", "--tags"],
+    ]
+    for cmd in commands:
+        result = subprocess.run(cmd, stdout=subprocess.PIPE)
+        print(result.stdout.decode("utf-8"))
+        if result.returncode < 1:
+            print(result.stderr.decode("utf-8"))
+            exit(1)
+
+
+def reset_to_syncpoint(syncpoint):
+    commit_hash = get_commit_hash_of_branch(syncpoint)
+    commands = [
+        ["git", "checkout", commit_hash],
+        ["git", "branch", "-f", "main", "HEAD"],
+        ["git", "checkout", "main"],
+        ["git", "push", "-u", "origin", "main"],
+    ]
+    for cmd in commands:
+        result = subprocess.run(cmd, stdout=subprocess.PIPE)
+        print(result.stdout.decode("utf-8"))
+        if result.returncode < 1:
+            print(result.stderr.decode("utf-8"))
+            exit(1)
+
+
+def main():
+    print(BANNER)
+    parser = argparse.ArgumentParser(
+        prog="lvlup-git-syncpoint",
+        description="Reset origin/main to selected syncpoint",
+    )
+    parser.add_argument(
+        "syncpoint",
+        default="all",
+        nargs="?",
+        choices=get_available_syncpoints(),
+        type=str,
+        help="<= select one of these",
+    )
+
+    args = parser.parse_args()
+    subprocess.run(["git", "fetch"])
+    save_current_state_to_tag()
+    reset_to_syncpoint(args.syncpoint)
+
+
+if __name__ == "__main__":
+    main()
