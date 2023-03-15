@@ -28,8 +28,8 @@ RUN \
 	&& rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 COPY scripts/lvlup-git-setup /usr/bin/lvlup-git-setup
-COPY scripts/lvlup-git-syncpoint /usr/bin/lvlup-git-sync
-COPY scripts/lvlup-git-syncpoint /usr/bin/lvlup-git-reset
+COPY scripts/lvlup-git-sync /usr/bin/lvlup-git-sync
+COPY scripts/lvlup-git-reset /usr/bin/lvlup-git-reset
 RUN \
 	chmod +x /usr/bin/lvlup-git-setup \
 	&& chmod +x /usr/bin/lvlup-git-sync \
