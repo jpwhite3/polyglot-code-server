@@ -56,6 +56,17 @@ class GitServer:
             time.sleep(1)
 
 
+def get_commit_hash_of_branch(branch_name):
+    result = subprocess.run(
+        f"git rev-parse --short --verify {branch_name}",
+        stdout=subprocess.PIPE,
+        shell=True,
+    )
+    if result.returncode < 0:
+        exit(1)
+    return result.stdout.decode("utf-8").strip()
+
+
 class TestGitSyncpoint(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -111,21 +122,22 @@ class TestGitSyncpoint(unittest.TestCase):
         self.assertTrue(os.getcwd().endswith(self.local_repo_dir))
 
         # test_print_history
-        command_args = shlex.split("git log --all --oneline --graph")
+        command_args = shlex.split("git log --all --oneline --graph --decorate")
         p = subprocess.run(command_args, stdout=subprocess.PIPE)
-        print(p.stdout.decode("utf-8"))
-
-        # test_print_all_branches
-        command_args = shlex.split("git branch --all")
-        p = subprocess.run(command_args, stdout=subprocess.PIPE)
-        print(p.stdout.decode("utf-8"))
+        expected = "(HEAD -> main, origin/main, origin/HEAD) commit #6 on main"
+        actual = p.stdout.decode("utf-8")
+        self.assertIn(expected, actual)
 
         # test_sync_to_branches
         scripts_dir = Path(__file__).parent.parent
         cmd_path = scripts_dir.joinpath("lvlup-git-syncpoint")
         interpreter = sys.executable
-        if cmd_path.exists():
-            command_args = [interpreter, str(cmd_path), "-h"]
-            p = subprocess.Popen(command_args, stdout=subprocess.PIPE, shell=True)
-            p.wait()
-            print(p.stdout.decode("utf-8"))
+        command_args = shlex.split(f"{interpreter} {str(cmd_path)} syncpoint-01")
+        subprocess.run(command_args, stdout=subprocess.PIPE)
+
+        # test_print_history
+        command_args = shlex.split("git log --all --oneline --graph --decorate")
+        p = subprocess.run(command_args, stdout=subprocess.PIPE)
+        expected = "(HEAD -> main, origin/main, origin/HEAD) commit #2 on syncpoint-01"
+        actual = p.stdout.decode("utf-8")
+        self.assertIn(expected, actual)

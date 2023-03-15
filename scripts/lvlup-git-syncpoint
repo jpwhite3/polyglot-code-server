@@ -27,7 +27,6 @@ def get_commit_hash_of_branch(branch_name):
         shell=True,
     )
     if result.returncode < 0:
-
         exit(1)
     return result.stdout.decode("utf-8").strip()
 
@@ -46,7 +45,6 @@ def save_current_state_to_tag():
     commit_hash = get_commit_hash_of_branch("main")
     commands = [
         f"git tag save-{commit_hash}",
-        "git push --tags",
     ]
     for cmd in commands:
         print(cmd)
@@ -59,10 +57,13 @@ def save_current_state_to_tag():
 def reset_to_syncpoint(syncpoint):
     commit_hash = get_commit_hash_of_branch(syncpoint)
     commands = [
+        f"git checkout {syncpoint}",
+        "git pull",
         f"git checkout {commit_hash}",
         "git branch -f main HEAD",
         "git checkout main",
-        "git push -u origin main",
+        "git pull --rebase",
+        "git push -u origin main --tags",
     ]
     for cmd in commands:
         print(cmd)

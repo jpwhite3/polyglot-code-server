@@ -1,7 +1,7 @@
 FROM ghcr.io/jpwhite3/polyglot:latest
 
 # CODER Installation
-ENV CODER_VERSION 4.9.1
+ENV CODER_VERSION 4.10.1
 RUN \
 	mkdir -p /config/data /config/workspace \
 	&& curl -fOL https://github.com/cdr/code-server/releases/download/v${CODER_VERSION}/code-server_${CODER_VERSION}_amd64.deb \
@@ -27,8 +27,11 @@ RUN \
 	&& code-server --install-extension hbenl.test-adapter-converter \
 	&& rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
-COPY scripts/git-setup /usr/bin/git-setup
-RUN chmod +x /usr/bin/git-setup
+COPY scripts/lvlup-git-setup /usr/bin/lvlup-git-setup
+COPY scripts/lvlup-git-syncpoint /usr/bin/lvlup-git-syncpoint
+RUN \
+	chmod +x /usr/bin/lvlup-git-setup \
+	&& chmod +x /usr/bin/lvlup-git-syncpoint
 
 # ports and volumes
 EXPOSE 9000 9001
