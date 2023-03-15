@@ -1,0 +1,78 @@
+#!env python3
+
+import argparse
+import subprocess
+import tempfile
+import shlex
+import time
+
+
+class CommandException(Exception):
+    pass
+
+
+class GitServer:
+    def __init__(self):
+        self.basedir = tempfile.TemporaryDirectory()
+        self.process = None
+        self._initialize_repo()
+
+    def __enter__(self):
+        self.start()
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self.stop()
+        self.basedir.cleanup()
+
+    def _run_command(self, command_str: str):
+        command_args = shlex.split(command_str)
+        return subprocess.run(
+            command_args, stdout=subprocess.PIPE, cwd=self.basedir.name
+        )
+
+    def _initialize_repo(self):
+        commands = [
+            "git init",
+            'git commit --allow-empty -m "initial commit"',
+            "git config receive.denyCurrentBranch updateInstead",
+        ]
+        for command in commands:
+            result = self._run_command(command)
+            if result.returncode > 0:
+                raise CommandException(result.stdout.decode("utf-8"))
+
+    def start(self):
+        cmd_str = f"git daemon --base-path={self.basedir.name} --export-all --enable=receive-pack --reuseaddr --informative-errors --verbose"
+        cmd_args = shlex.split(cmd_str)
+        if self.process is None:
+            self.process = subprocess.Popen(cmd_args)
+            time.sleep(1)
+
+    def stop(self):
+        if self.process is not None:
+            self.process.terminate()
+            time.sleep(1)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        prog="lvlup-git-syncpoint",
+        description="Reset origin/main to selected syncpoint",
+    )
+    parser.add_argument(
+        "command",
+        type=str,
+        help="command to execute while git server is running",
+    )
+
+    args = parser.parse_args()
+
+    with GitServer() as svr:
+        command_args = shlex.split(args.command)
+        r = subprocess.run(command_args, stdout=subprocess.PIPE, cwd=svr.basedir.name)
+        print(r.stdout.decode("utf-8"))
+
+
+if __name__ == "__main__":
+    main()

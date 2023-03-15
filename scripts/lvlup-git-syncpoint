@@ -2,6 +2,7 @@
 
 import subprocess
 import argparse
+import shlex
 from functools import lru_cache
 
 BANNER = """
@@ -21,10 +22,12 @@ SYNCPOINT_BRANCH_PREFIX = "syncpoint"
 
 def get_commit_hash_of_branch(branch_name):
     result = subprocess.run(
-        "git rev-parse --short --verify main", stdout=subprocess.PIPE
+        f"git rev-parse --short --verify {branch_name}",
+        stdout=subprocess.PIPE,
+        shell=True,
     )
-    if result.returncode < 1:
-        print(result.stderr.decode("utf-8"))
+    if result.returncode < 0:
+
         exit(1)
     return result.stdout.decode("utf-8").strip()
 
@@ -42,37 +45,30 @@ def get_available_syncpoints():
 def save_current_state_to_tag():
     commit_hash = get_commit_hash_of_branch("main")
     commands = [
-        [
-            "git",
-            "tag",
-            f"save-{commit_hash}",
-            commit_hash,
-            "-a",
-            "saving state prior to main branch repointing",
-        ],
-        ["git", "push", "--tags"],
+        f"git tag save-{commit_hash}",
+        "git push --tags",
     ]
     for cmd in commands:
-        result = subprocess.run(cmd, stdout=subprocess.PIPE)
+        print(cmd)
+        result = subprocess.run(shlex.split(cmd), stdout=subprocess.PIPE)
         print(result.stdout.decode("utf-8"))
-        if result.returncode < 1:
-            print(result.stderr.decode("utf-8"))
+        if result.returncode < 0:
             exit(1)
 
 
 def reset_to_syncpoint(syncpoint):
     commit_hash = get_commit_hash_of_branch(syncpoint)
     commands = [
-        ["git", "checkout", commit_hash],
-        ["git", "branch", "-f", "main", "HEAD"],
-        ["git", "checkout", "main"],
-        ["git", "push", "-u", "origin", "main"],
+        f"git checkout {commit_hash}",
+        "git branch -f main HEAD",
+        "git checkout main",
+        "git push -u origin main",
     ]
     for cmd in commands:
-        result = subprocess.run(cmd, stdout=subprocess.PIPE)
+        print(cmd)
+        result = subprocess.run(shlex.split(cmd), stdout=subprocess.PIPE)
         print(result.stdout.decode("utf-8"))
-        if result.returncode < 1:
-            print(result.stderr.decode("utf-8"))
+        if result.returncode < 0:
             exit(1)
 
 
@@ -84,7 +80,6 @@ def main():
     )
     parser.add_argument(
         "syncpoint",
-        default="all",
         nargs="?",
         choices=get_available_syncpoints(),
         type=str,
