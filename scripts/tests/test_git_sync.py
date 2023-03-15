@@ -29,7 +29,10 @@ class GitServer:
     def _run_command(self, command_str: str):
         command_args = shlex.split(command_str)
         return subprocess.run(
-            command_args, stdout=subprocess.PIPE, cwd=self.basedir.name
+            command_args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd=self.basedir.name,
         )
 
     def _initialize_repo(self):
@@ -54,17 +57,6 @@ class GitServer:
         if self.process is not None:
             self.process.terminate()
             time.sleep(1)
-
-
-def get_commit_hash_of_branch(branch_name):
-    result = subprocess.run(
-        f"git rev-parse --short --verify {branch_name}",
-        stdout=subprocess.PIPE,
-        shell=True,
-    )
-    if result.returncode < 0:
-        exit(1)
-    return result.stdout.decode("utf-8").strip()
 
 
 class TestGitSyncpoint(unittest.TestCase):
@@ -130,7 +122,7 @@ class TestGitSyncpoint(unittest.TestCase):
 
         # test_sync_to_branches
         scripts_dir = Path(__file__).parent.parent
-        cmd_path = scripts_dir.joinpath("lvlup-git-syncpoint")
+        cmd_path = scripts_dir.joinpath("lvlup-git-sync")
         interpreter = sys.executable
         command_args = shlex.split(f"{interpreter} {str(cmd_path)} syncpoint-01")
         subprocess.run(command_args, stdout=subprocess.PIPE)

@@ -28,10 +28,12 @@ RUN \
 	&& rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 COPY scripts/lvlup-git-setup /usr/bin/lvlup-git-setup
-COPY scripts/lvlup-git-syncpoint /usr/bin/lvlup-git-syncpoint
+COPY scripts/lvlup-git-syncpoint /usr/bin/lvlup-git-sync
+COPY scripts/lvlup-git-syncpoint /usr/bin/lvlup-git-reset
 RUN \
 	chmod +x /usr/bin/lvlup-git-setup \
-	&& chmod +x /usr/bin/lvlup-git-syncpoint
+	&& chmod +x /usr/bin/lvlup-git-sync \
+	&& chmod +x /usr/bin/lvlup-git-reset
 
 # ports and volumes
 EXPOSE 9000 9001
