@@ -64,8 +64,7 @@ def reset_to_syncpoint(syncpoint):
         f"git checkout {commit_hash}",
         "git branch -f main HEAD",
         "git checkout main",
-        "git pull --rebase",
-        "git push -u origin main --tags",
+        "git push -u origin main --tags -f",
     ]
     for cmd in commands:
         print(cmd)
