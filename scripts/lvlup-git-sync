@@ -82,7 +82,6 @@ def main():
     )
     parser.add_argument(
         "syncpoint",
-        nargs="?",
         choices=get_available_syncpoints(),
         type=str,
         help="<= select one of these",
