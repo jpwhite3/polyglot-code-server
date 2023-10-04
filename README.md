@@ -17,7 +17,7 @@ _NOTE:_ The container image is quite large, and can be very resource intensive. 
 | Node == 18.18.0       | nvm == 0.39.5, npm == 9.8.1                          |
 | code-server == 4.17.1 | _various vscode plugins_                             |
 | Python == 3.11.5      | Poetry == 1.1.13                                     |
-| Java == 20.0.2        | gradle == 8.3, Maven == 3.8.7                        |
+| Java == 20.0.2        |                                                      |
 | GO == 1.21.1          |                                                      |
 | Dotnet == 6.0.122     | livingdoc                                            |
 | Linux Utilities       | wget, curl, gpg, git, make, p7zip, vim, jq, xz-utils |
