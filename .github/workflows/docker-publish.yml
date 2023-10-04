@@ -2,11 +2,11 @@ name: Docker
 
 on:
   push:
-    branches: [ develop, main ]
+    branches: [develop, main]
     tags:
       - v*
     paths-ignore:
-        - '**/README.md'
+      - '**/README.md'
   pull_request:
 
 env:
@@ -23,9 +23,9 @@ jobs:
         with:
           status: Building
           channel: '#github'
-      
-      - uses: actions/checkout@v2
-      
+
+      - uses: actions/checkout@v3
+
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
@@ -43,7 +43,7 @@ jobs:
           status: Pushing image
           channel: '#github'
         if: always()
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
