@@ -17,14 +17,13 @@ RUN \
 	&& code-server --install-extension dbaeumer.vscode-eslint \
 	&& code-server --install-extension vscjava.vscode-java-pack \
 	&& code-server --install-extension richardwillis.vscode-gradle \
-	&& code-server --install-extension patcx.vscode-nuget-gallery \
+	&& code-server --install-extension muhammad-sammy.csharp \
 	&& code-server --install-extension redhat.vscode-yaml \
 	&& code-server --install-extension hbenl.vscode-mocha-test-adapter \
 	&& code-server --install-extension kavod-io.vscode-jest-test-adapter \
 	&& code-server --install-extension hbenl.vscode-jasmine-test-adapter \
 	&& code-server --install-extension ethan-reesor.vscode-go-test-adapter \
 	&& code-server --install-extension alexkrechik.cucumberautocomplete \
-	&& code-server --install-extension hbenl.test-adapter-converter \
 	&& rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 COPY scripts/lvlup-git-setup /usr/bin/lvlup-git-setup
