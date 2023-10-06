@@ -18,14 +18,7 @@ jobs:
     if: github.ref_name == 'develop'
     runs-on: ubuntu-latest
     steps:
-      - uses: act10ns/slack@v1
-        if: always()
-        with:
-          status: Building
-          channel: '#github'
-
       - uses: actions/checkout@v3
-
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
@@ -38,13 +31,7 @@ jobs:
     if: github.ref_name == 'main'
     runs-on: ubuntu-latest
     steps:
-      - uses: act10ns/slack@v1
-        with:
-          status: Pushing image
-          channel: '#github'
-        if: always()
       - uses: actions/checkout@v3
-
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
@@ -72,9 +59,3 @@ jobs:
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
-      - uses: act10ns/slack@v1
-        with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-          channel: '#github'
-        if: always()
