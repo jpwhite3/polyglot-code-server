@@ -18,10 +18,10 @@ print(banner)
 
 print("\nSyncing your local repo with the remote...\n")
 commands = [
-    "git reset HEAD --hard",
-    "git clean -fdx",
-    "git fetch",
     "git checkout main",
+    "git fetch origin",
+    "git reset origin/main --hard",
+    "git clean -fdx",
     "git pull",
 ]
 for cmd in commands:

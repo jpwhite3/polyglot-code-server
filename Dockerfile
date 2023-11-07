@@ -2,7 +2,7 @@ FROM ghcr.io/jpwhite3/polyglot:latest
 
 
 # CODER Installation
-ENV CODER_VERSION 4.17.1
+ENV CODER_VERSION 4.18.0
 RUN \
 	mkdir -p /config/data /config/workspace \
 	&& curl -fOL https://github.com/cdr/code-server/releases/download/v${CODER_VERSION}/code-server_${CODER_VERSION}_amd64.deb \
@@ -26,11 +26,11 @@ RUN \
 	curl -o /tmp/vscode-dotnet-runtime-${VSCODE_DOTNET_RUNTIME_VERSION}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.vscode-dotnet-runtime-${VSCODE_DOTNET_RUNTIME_VERSION}.vsix \
 	&& curl -o /tmp/csharp-${VSCODE_CSHARP_VERSION}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.csharp-${VSCODE_CSHARP_VERSION}%40linux-x64.vsix \
 	&& curl -o /tmp/intellicode-${VSCODE_INTELLICODE}.vsix https://coder-extensions.s3.amazonaws.com/VisualStudioExptTeam.vscodeintellicode-${VSCODE_INTELLICODE}.vsix \
-    && curl -o /tmp/intellicode-csharp-${VSCODE_INTELLICODE_CSHARP}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.vscodeintellicode-csharp-${VSCODE_INTELLICODE_CSHARP}%40linux-x64.vsix \
+	&& curl -o /tmp/intellicode-csharp-${VSCODE_INTELLICODE_CSHARP}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.vscodeintellicode-csharp-${VSCODE_INTELLICODE_CSHARP}%40linux-x64.vsix \
 	&& curl -o /tmp/csharp-dev-kit-${VSCODE_CSHARP_DEV_KIT}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.csdevkit-${VSCODE_CSHARP_DEV_KIT}%40linux-x64.vsix \
 	&& curl -o /tmp/redhat-java-${REDHAT_JAVA}.vsix -fL https://coder-extensions.s3.amazonaws.com/redhat.java-${REDHAT_JAVA}%40linux-x64.vsix \
 	&& curl -o /tmp/vscode-java-debug-${VSCODE_JAVA_DEBUG}.vsix -fL https://coder-extensions.s3.amazonaws.com/vscjava.vscode-java-debug-${VSCODE_JAVA_DEBUG}.vsix \
-    && curl -o /tmp/vscode-java-test-${VSCODE_JAVA_TEST}.vsix -fL https://coder-extensions.s3.amazonaws.com/vscjava.vscode-java-test-${VSCODE_JAVA_TEST}.vsix \
+	&& curl -o /tmp/vscode-java-test-${VSCODE_JAVA_TEST}.vsix -fL https://coder-extensions.s3.amazonaws.com/vscjava.vscode-java-test-${VSCODE_JAVA_TEST}.vsix \
 	&& curl -o /tmp/vscode-maven-${VSCODE_MAVEN}.vsix -fL https://coder-extensions.s3.amazonaws.com/vscjava.vscode-maven-${VSCODE_MAVEN}.vsix  \
 	&& curl -o /tmp/vscode-java-dependency-${VSCODE_JAVA_DEP}.vsix -fL https://coder-extensions.s3.amazonaws.com/vscjava.vscode-java-dependency-${VSCODE_JAVA_DEP}.vsix \
 	&& curl -o /tmp/vscode-java-pack-${VSCODE_JAVA_PACK}.vsix -fL https://coder-extensions.s3.amazonaws.com/vscjava.vscode-java-pack-${VSCODE_JAVA_PACK}.vsix \
