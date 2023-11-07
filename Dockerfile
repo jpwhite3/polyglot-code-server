@@ -1,5 +1,7 @@
 FROM ghcr.io/jpwhite3/polyglot:latest
 
+# Zsh Configuration
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # CODER Installation
 ENV CODER_VERSION 4.18.0
@@ -23,8 +25,6 @@ ENV VSCODE_JAVA_DEP 0.23.2023100802
 ENV VSCODE_JAVA_PACK 0.25.2023100708
 ENV VSCODE_PYTHON 2023.21.13101009
 ENV VSCODE_PYLANCE 2023.11.11
-ENV VSCODE_RUST_SYNTAX 0.6.1
-ENV VSCODE_RUST_ANALYZER 0.4.1723
 RUN \
 	curl -o /tmp/vscode-dotnet-runtime-${VSCODE_DOTNET_RUNTIME_VERSION}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.vscode-dotnet-runtime-${VSCODE_DOTNET_RUNTIME_VERSION}.vsix \
 	&& curl -o /tmp/csharp-${VSCODE_CSHARP_VERSION}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.csharp-${VSCODE_CSHARP_VERSION}%40linux-x64.vsix \
@@ -39,8 +39,6 @@ RUN \
 	&& curl -o /tmp/vscode-java-pack-${VSCODE_JAVA_PACK}.vsix -fL https://coder-extensions.s3.amazonaws.com/vscjava.vscode-java-pack-${VSCODE_JAVA_PACK}.vsix \
 	&& curl -o /tmp/vscode-python-${VSCODE_PYTHON}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-python.python-${VSCODE_PYTHON}.vsix \
 	&& curl -o /tmp/vscode-pylance-${VSCODE_PYLANCE}.vsix-fL https://coder-extensions.s3.amazonaws.com/ms-python.vscode-pylance-${VSCODE_PYLANCE}.vsix \
-	&& curl -o /tmp/rust-syntax-${VSCODE_RUST_SYNTAX}.vsix-fL https://coder-extensions.s3.amazonaws.com/dustypomerleau.rust-syntax-${VSCODE_RUST_SYNTAX}.vsix.vsix \
-	&& curl -o /tmp/rust-analyzer-${VSCODE_RUST_ANALYZER}.vsix-fL https://coder-extensions.s3.amazonaws.com/rust-lang.rust-analyzer-${VSCODE_RUST_ANALYZER}@linux-x64.vsix \
 	&& find /tmp/ -name '*.vsix' -exec code-server --verbose --install-extension {} \; \
 	&& rm -rf /tmp/vscode*
 
@@ -59,6 +57,7 @@ RUN \
 	&& code-server --install-extension hbenl.vscode-jasmine-test-adapter \
 	&& code-server --install-extension ethan-reesor.vscode-go-test-adapter \
 	&& code-server --install-extension alexkrechik.cucumberautocomplete \
+	&& code-server --install-extension rust-lang.rust-lang.rust-analyzer \
 	&& rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 
