@@ -47,17 +47,11 @@ RUN \
 RUN \
 	code-server --install-extension eamodio.gitlens \
 	&& code-server --install-extension mhutchie.git-graph \
-	&& code-server --install-extension LittleFoxTeam.vscode-python-test-adapter \
 	&& code-server --install-extension golang.go \
 	&& code-server --install-extension dbaeumer.vscode-eslint \
 	&& code-server --install-extension richardwillis.vscode-gradle \
 	&& code-server --install-extension redhat.vscode-yaml \
-	&& code-server --install-extension hbenl.vscode-mocha-test-adapter \
-	&& code-server --install-extension kavod-io.vscode-jest-test-adapter \
-	&& code-server --install-extension hbenl.vscode-jasmine-test-adapter \
-	&& code-server --install-extension ethan-reesor.vscode-go-test-adapter \
 	&& code-server --install-extension alexkrechik.cucumberautocomplete \
-	&& code-server --install-extension rust-lang.rust-lang.rust-analyzer \
 	&& rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 
