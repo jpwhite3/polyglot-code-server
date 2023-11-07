@@ -21,7 +21,7 @@ commands = [
     "git checkout main",
     "git fetch origin",
     "git reset origin/main --hard",
-    "git clean -fdx",
+    "git clean -ffdx",
     "git pull",
 ]
 for cmd in commands:
