@@ -1,8 +1,5 @@
 FROM ghcr.io/jpwhite3/polyglot:latest
 
-# Zsh Configuration
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
 # CODER Installation
 ENV CODER_VERSION 4.18.0
 RUN \
@@ -28,7 +25,7 @@ ENV VSCODE_PYLANCE 2023.11.11
 RUN \
 	curl -o /tmp/vscode-dotnet-runtime-${VSCODE_DOTNET_RUNTIME_VERSION}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.vscode-dotnet-runtime-${VSCODE_DOTNET_RUNTIME_VERSION}.vsix \
 	&& curl -o /tmp/csharp-${VSCODE_CSHARP_VERSION}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.csharp-${VSCODE_CSHARP_VERSION}%40linux-x64.vsix \
-	&& curl -o /tmp/intellicode-${VSCODE_INTELLICODE}.vsix https://coder-extensions.s3.amazonaws.com/VisualStudioExptTeam.vscodeintellicode-${VSCODE_INTELLICODE}.vsix \
+	&& curl -o /tmp/intellicode-${VSCODE_INTELLICODE}.vsix -fL https://coder-extensions.s3.amazonaws.com/VisualStudioExptTeam.vscodeintellicode-${VSCODE_INTELLICODE}.vsix \
 	&& curl -o /tmp/intellicode-csharp-${VSCODE_INTELLICODE_CSHARP}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.vscodeintellicode-csharp-${VSCODE_INTELLICODE_CSHARP}%40linux-x64.vsix \
 	&& curl -o /tmp/csharp-dev-kit-${VSCODE_CSHARP_DEV_KIT}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-dotnettools.csdevkit-${VSCODE_CSHARP_DEV_KIT}%40linux-x64.vsix \
 	&& curl -o /tmp/redhat-java-${REDHAT_JAVA}.vsix -fL https://coder-extensions.s3.amazonaws.com/redhat.java-${REDHAT_JAVA}%40linux-x64.vsix \
@@ -38,7 +35,7 @@ RUN \
 	&& curl -o /tmp/vscode-java-dependency-${VSCODE_JAVA_DEP}.vsix -fL https://coder-extensions.s3.amazonaws.com/vscjava.vscode-java-dependency-${VSCODE_JAVA_DEP}.vsix \
 	&& curl -o /tmp/vscode-java-pack-${VSCODE_JAVA_PACK}.vsix -fL https://coder-extensions.s3.amazonaws.com/vscjava.vscode-java-pack-${VSCODE_JAVA_PACK}.vsix \
 	&& curl -o /tmp/vscode-python-${VSCODE_PYTHON}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-python.python-${VSCODE_PYTHON}.vsix \
-	&& curl -o /tmp/vscode-pylance-${VSCODE_PYLANCE}.vsix-fL https://coder-extensions.s3.amazonaws.com/ms-python.vscode-pylance-${VSCODE_PYLANCE}.vsix \
+	&& curl -o /tmp/vscode-pylance-${VSCODE_PYLANCE}.vsix -fL https://coder-extensions.s3.amazonaws.com/ms-python.vscode-pylance-${VSCODE_PYLANCE}.vsix \
 	&& find /tmp/ -name '*.vsix' -exec code-server --verbose --install-extension {} \; \
 	&& rm -rf /tmp/vscode*
 
@@ -63,6 +60,13 @@ RUN \
 	chmod +x /usr/bin/lvlup-git-setup \
 	&& chmod +x /usr/bin/lvlup-git-sync \
 	&& chmod +x /usr/bin/lvlup-git-reset
+
+
+# Zsh Configuration
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+RUN \
+	curl -H 'Cache-Control: no-cache, no-store' -o /root/.oh-my-zsh/themes/level-up.zsh-theme -fL https://raw.githubusercontent.com/jpwhite3/level-up.zsh/main/level-up.zsh-theme \
+	&& sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="level-up"/' /root/.zshrc
 
 
 # ports and volumes
