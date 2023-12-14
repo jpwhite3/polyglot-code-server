@@ -19,6 +19,7 @@ RUN \
 	&& code-server --install-extension oderwat.indent-rainbow \
 	&& code-server --install-extension rust-lang.rust \
 	&& code-server --install-extension redhat.java \
+	&& code-server --install-extension ms-azuretools.vscode-docker \
 	&& rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
 
 # ports and volumes
