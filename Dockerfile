@@ -11,13 +11,15 @@ RUN \
 RUN \
 	code-server --install-extension eamodio.gitlens \
 	&& code-server --install-extension mhutchie.git-graph \
+	&& code-server --install-extension ms-python.python \
+	&& code-server --install-extension rebornix.ruby \
 	&& code-server --install-extension golang.go \
 	&& code-server --install-extension dbaeumer.vscode-eslint \
 	&& code-server --install-extension redhat.vscode-yaml \
+	&& code-server --install-extension oderwat.indent-rainbow \
+	&& code-server --install-extension rust-lang.rust \
+	&& code-server --install-extension redhat.java \
 	&& rm -rf /root/.local/share/code-server/CachedExtensionVSIXs/*
-
-# Zsh Configuration
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # ports and volumes
 EXPOSE 9000 9001
