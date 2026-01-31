@@ -12,16 +12,16 @@ _NOTE:_ The container image is quite large, and can be very resource intensive. 
 
 ## Included Languages & Tools
 
-| Language Ecosystem | Version  | Included Tools |
-| ------------------ | -------- | -------------- |
-| Node               | 20.10.0  | nvm, npm       |
-| Python             | 3.11.5   | Poetry, pipenv |
-| Ruby               | 3.1.2p20 | gem, rbenv     |
-| Java               | 20.0.2   |                |
-| Dotnet             | 6.0.122  |                |
-| GO                 | 1.21.5   |                |
-| Rust               | 1.74.1   |                |
-| Docker             | 24.0.7   |                |
+| Language Ecosystem | Version | Included Tools       |
+| ------------------ | ------- | -------------------- |
+| Node               | 22.16.0 | nvm, npm             |
+| Python             | 3.11.5  | poetry, pipenv, pipx |
+| Java               | 21.0.7  |                      |
+| Dotnet             | 8.0.117 |                      |
+| GO                 | 1.24.4  |                      |
+| Ruby               | 3.2.3   | rbenv, gem           |
+| Rust               | 1.87.0  |                      |
+| Docker             | 28.2.2  |                      |
 
 # Installations instructions
 
